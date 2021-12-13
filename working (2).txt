@@ -1,0 +1,125 @@
+package com.java;
+import java.io.*;
+import java.io.IOException;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        String filename = new String();
+        Scanner scan= new Scanner(System.in);
+        System.out.println("Name Your File");
+        filename= scan.nextLine();
+        String directory = System.getProperty("user.dir");
+        String path="";
+        path = directory+File.separator+filename;
+        System.out.println("Filepath is"+path);
+        File file = new File(path);
+        boolean result;
+        try {
+            result=file.createNewFile();//*creates a new file....
+            if(result)//test if successfully created a new file
+            {
+                System.out.println("file created" +file.getCanonicalPath());
+            }
+            else{
+                System.out.println("file already exist at location:"+file.getCanonicalPath());}
+// delete file
+            // create file want to create
+        }
+        catch (IOException file_creation)
+        {
+            file_creation.printStackTrace();
+        }
+        FileWriter fileWriter;
+        try {
+            fileWriter = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fileWriter);
+            //read the line 10 line with 10 word in a line
+            Scanner input= new Scanner(System.in);
+            System.out.println("type Exit to Exit");
+
+            String lines = "";
+            while (!lines.equals("Exit") ) {
+                lines = input.nextLine();
+                if(lines.equals("Exit")){
+                    break;
+                }else{
+                    bw.write(lines);
+                    bw.newLine();
+                }
+            }
+            bw.flush();
+            bw.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();          }
+        {
+            BufferedReader reader = null;
+
+            //Initializing charCount, wordCount and lineCount to 0
+            int wordCount = 0;
+
+            int lineCount = 0;
+
+            try
+            {
+                //Creating BufferedReader object
+
+                reader = new BufferedReader(new FileReader(path));
+
+                //Reading the first line into currentLine
+
+                String currentLine;
+                currentLine = reader.readLine();
+
+                while (currentLine != null)
+                {
+                    //Updating the lineCount
+
+                    lineCount++;
+
+                    //Getting number of words in currentLine
+
+                    String[] words = currentLine.split(" ");
+
+                    //Updating the wordCount
+
+                    wordCount = wordCount + words.length;
+
+                    currentLine = reader.readLine();
+                }
+
+                boolean checkLineif10 ;
+                checkLineif10=  ( lineCount==10);
+                //Printing charCount, wordCount and lineCount
+                if(checkLineif10)
+                {
+                    System.out.println("There are 10 lines ");
+                }else{
+                    System.out.println("There are no 10 lines ");
+
+                }
+                System.out.println("Number Of Words In A File : "+wordCount);
+
+                System.out.println("Number Of Lines In A File : "+lineCount);
+                // Boolean.compare(lineCount.10);
+            }
+            catch (IOException exceptions)
+            {
+                exceptions.printStackTrace();
+            }
+            finally
+            {
+                try
+                {
+                    reader.close();           //Closing the reader
+                }
+                catch (IOException exception)
+                {
+                    exception.printStackTrace();
+                }
+            }
+        }
+    }
+}
